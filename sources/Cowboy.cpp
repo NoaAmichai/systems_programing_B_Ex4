@@ -1,4 +1,6 @@
 
 #include "Cowboy.hpp"
 
-namespace ariel {}
+namespace ariel {
+
+}

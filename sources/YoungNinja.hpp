@@ -1,9 +1,14 @@
 #pragma once
+
+#include "Ninja.hpp"
+
 namespace ariel {
 
 
-    class YoungNinja {
+    class YoungNinja: public Ninja {
 
+    public:
+        YoungNinja(std::string name, Point point) : Ninja(name, point) {}
     };
 
 }
