@@ -8,22 +8,26 @@ namespace ariel {
     private:
         std::string _name;
         Point _location;
-        int hit_point;
+        int _hit_points;
 
     public:
-        Character(std::string name, Point location) : _name(name), _location(location) , hit_point(0){};
+        Character(std::string &name, Point &location, int hit_points) : _name(name), _location(location),
+                                                                        _hit_points(hit_points) {};
 
-        bool isAlive();
+        // ? virtual ~Character()= default;
+
+        bool isAlive() const;
 
         double distance(const Character &other) const;
 
         void hit(int points);
 
+        const Point &getLocation() const;
+
         std::string getName() const;
 
-        Point &getLocation() const;
+        virtual void print() const; //TODO check if virtual needed
 
-        void print();
 
     };
 }

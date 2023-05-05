@@ -4,12 +4,21 @@
 
 namespace ariel {
 
-    class Cowboy :public Character{
+    class Cowboy : public Character {
     private:
+        int _bullets;
 
 
     public:
-        Cowboy(std::string name, Point point): Character(name, point){};
+        Cowboy(std::string name, Point &point) : Character(name, point, 11), _bullets(6) {}; // & ?
+
+        void shoot(Character *enemy);
+
+        bool hasBullets() const;
+
+        void reload();
+
+        void print() const override;
     };
 }
 

@@ -2,9 +2,7 @@
 
 #include "Point.hpp"
 #include "Cowboy.hpp"
-#include "OldNinja.hpp"
-#include "YoungNinja.hpp"
-#include "TrainedNinja.hpp"
+#include "Ninja.hpp"
 #include "Character.hpp"
 
 namespace ariel {
@@ -15,11 +13,11 @@ namespace ariel {
 
     public:
         Team(Character* leader){};
-        void add(Character* member);
-        void attack(Team* enemies);
+        void add(Character* member){};
+        void attack(Team* enemies){};
 
-        int stillAlive() const;
-        void print() const;
+        int stillAlive() const{return 0;};
+        void print() const{};
 
 
     };

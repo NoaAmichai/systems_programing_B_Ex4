@@ -23,7 +23,7 @@ int main() {
     Cowboy *tom = new Cowboy("Tom", a);
     OldNinja *sushi = new OldNinja("sushi", b);
     tom->shoot(sushi);
-    cout << tom->print() <<endl;
+    tom->print(); //TODO I changed this line!!
 
     sushi->move(tom);
     sushi->slash(tom);
