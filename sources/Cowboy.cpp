@@ -19,8 +19,7 @@ namespace ariel {
         _bullets += 6;
     }
 
-    void Cowboy::print() const {
-        cout << "C : " << endl;
-        Character::print();
+    string Cowboy::print() const {
+        return "C : " + Character::print();
     }
 }

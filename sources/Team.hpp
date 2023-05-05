@@ -8,16 +8,19 @@
 namespace ariel {
     class Team {
     private:
-        static const int MAX_MEMBERS {10};
+        static const int MAX_MEMBERS{10};
 
 
     public:
-        Team(Character* leader){};
-        void add(Character* member){};
-        void attack(Team* enemies){};
+        Team(Character *leader) {};
 
-        int stillAlive() const{return 0;};
-        void print() const{};
+        void add(Character *member) {};
+
+        void attack(Team *enemies) {};
+
+        int stillAlive() const { return 0; };
+
+        std::string print() const { return ""; };
 
 
     };

@@ -17,7 +17,7 @@ namespace ariel {
 
         void slash(Character *enemy);
 
-        void print() const override;
+        std::string print() const override;
     };
 
     class YoungNinja : public Ninja {

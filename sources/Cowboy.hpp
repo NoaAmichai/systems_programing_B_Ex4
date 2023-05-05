@@ -18,7 +18,7 @@ namespace ariel {
 
         void reload();
 
-        void print() const override;
+        std::string print() const override;
     };
 }
 

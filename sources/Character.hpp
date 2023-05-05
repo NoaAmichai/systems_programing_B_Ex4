@@ -26,7 +26,7 @@ namespace ariel {
 
         std::string getName() const;
 
-        virtual void print() const; //TODO check if virtual needed
+        virtual std::string print() const; //TODO check if virtual needed
 
 
     };

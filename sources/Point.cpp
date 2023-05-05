@@ -18,8 +18,9 @@ namespace ariel {
         return sqrt(pow(_x - other._x, 2) + pow(_y - other._y, 2));
     }
 
-    void Point::print() const {
-        std::cout << "(" << _x << ", " << _y << ")";
+    string Point::print() const {
+        string str = "(" + to_string(_x) + ", " + to_string(_y) + ")";
+        return str;
     }
 
     Point Point::moveTowards(const Point &source, const Point &dest, const double max_distance) const {

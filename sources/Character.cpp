@@ -27,17 +27,17 @@ namespace ariel {
         return _location;
     }
 
-    void Character::print() const {
+    string Character::print() const {
+        string str;
         if (!isAlive()) {
-            cout << "Name: (" << _name << "), Location:";
-            _location.print();
-            cout << endl;
+            str += "Name: (" + _name + "), Location:" +
+                   _location.print()
+                   + '\n';
         } else {
-            cout << "Name: " << _name << ", Hit Points:" << " (" << _hit_points << ") " << ", Location: ";
-            _location.print();
-            cout << endl;
+            str += "Name: " + _name + ", Hit Points:" + " (" + to_string(_hit_points) + ") " + ", Location: " +
+                   _location.print() + '\n';
         }
-
+        return str;
 
     }
 

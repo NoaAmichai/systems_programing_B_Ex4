@@ -3,9 +3,8 @@
 using namespace std;
 namespace ariel {
 
-    void Ninja::print() const {
-        cout << "N : " << endl;
-        Character::print();
+    string Ninja::print() const {
+        return "N : " + Character::print();
     }
 
     void Ninja::move(const Character *enemy) {

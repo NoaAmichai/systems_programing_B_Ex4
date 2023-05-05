@@ -19,7 +19,7 @@ namespace ariel {
 
         double distance(const Point &other) const;
 
-        void print() const;
+        std::string print() const;
 
         Point moveTowards(const Point &source, const Point &dest, const double max_distance) const;
     };
