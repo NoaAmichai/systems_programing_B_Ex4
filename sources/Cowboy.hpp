@@ -10,7 +10,7 @@ namespace ariel {
 
 
     public:
-        Cowboy(std::string name, Point &point) : Character(name, point, 11), _bullets(6) {}; // & ?
+        Cowboy(std::string name, Point &point) : Character(name, point, 110), _bullets(6) {}; // & ?
 
         void shoot(Character *enemy);
 

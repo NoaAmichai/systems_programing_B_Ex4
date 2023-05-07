@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "Point.hpp"
 #include "Cowboy.hpp"
 #include "Ninja.hpp"
@@ -9,18 +10,22 @@ namespace ariel {
     class Team {
     private:
         static const int MAX_MEMBERS{10};
-
+        std::vector<Character *> _members;
+        Character *_leader;
+        int current_members;
 
     public:
-        Team(Character *leader) {};
+        Team(Character *leader);
 
-        void add(Character *member) {};
+        virtual ~Team() = default;
 
-        void attack(Team *enemies) {};
+        void add(Character *member);
 
-        int stillAlive() const { return 0; };
+        void attack(Team *enemies);
 
-        std::string print() const { return ""; };
+        int stillAlive() const;
+
+        std::string print() const;
 
 
     };
