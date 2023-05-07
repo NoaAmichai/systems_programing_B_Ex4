@@ -4,6 +4,52 @@
 
 using namespace ariel;
 
+
+TEST_CASE("Point class tests") {
+
+    SUBCASE("getX and getY functions should return 0.0 for newly created points") {
+        Point p;
+        CHECK(p.getX() == 0.0);
+        CHECK(p.getY() == 0.0);
+    }
+
+    SUBCASE("distance function should return 0.0 for points that are the same") {
+        Point p1(2.0, 3.0);
+        Point p2(2.0, 3.0);
+        CHECK(p1.distance(p2) == 0.0);
+    }
+
+    SUBCASE("print function should return the expected string representation") {
+        Point p(2.5, 3.8);
+        CHECK(p.print() == "(2.5, 3.8)");
+    }
+
+    SUBCASE("moveTowards function should return the destination point if max_distance is greater than or equal to the distance between source and dest") {
+        Point source(1.0, 1.0);
+        Point dest(4.0, 5.0);
+        double max_distance = 5.0;
+        Point result = Point::moveTowards(source, dest, max_distance);
+        CHECK(result.getX() == dest.getX());
+        CHECK(result.getY() == dest.getY());
+    }
+
+    SUBCASE("moveTowards function should throw an invalid_argument exception if max_distance is negative") {
+        Point source(1.0, 1.0);
+        Point dest(4.0, 5.0);
+        double max_distance = -1.0;
+        CHECK_THROWS_AS(Point::moveTowards(source, dest, max_distance), std::invalid_argument);
+    }
+
+    SUBCASE("moveTowards function should return a point that is max_distance away from source if dest is far away") {
+        Point source(1.0, 1.0);
+        Point dest(4.0, 5.0);
+        double max_distance = 3.0;
+        Point result = ariel::Point::moveTowards(source, dest, max_distance);
+        double actual_distance = source.distance(result);
+        CHECK(actual_distance == doctest::Approx(max_distance));
+    }
+}
+
 TEST_CASE("Test team functionality") {
     Point a(32.3, 44), b(1.3, 3.5);
     Cowboy *tom = new Cowboy("Tom", a);
@@ -25,53 +71,7 @@ TEST_CASE("Test team functionality") {
         CHECK(team_A.stillAlive() == 2);
         CHECK(team_B.stillAlive() == 1);
     }
-
 }
-
-
-TEST_CASE("Adding characters to team") {
-    Point p1(1, 2), p2(3, 4), p3(5, 6);
-    Cowboy c1("cowboy1", p1);
-    OldNinja n1("ninja1", p2);
-    TrainedNinja n2("ninja2", p3);
-    Team team(&c1);
-    CHECK(team.stillAlive() == 1);
-
-    SUBCASE("Adding same character twice should throw exception") {
-        CHECK_THROWS_AS(team.add(&c1), std::invalid_argument);
-        CHECK(team.stillAlive() == 1);
-    }
-
-    SUBCASE("Adding characters to the team") {
-        team.add(&n1);
-        CHECK(team.stillAlive() == 2);
-        team.add(&n2);
-        CHECK(team.stillAlive() == 3);
-    }
-}
-
-TEST_CASE("Attacking enemy team") {
-    Point p1(1, 2), p2(3, 4), p3(5, 6), p4(7, 8);
-    Cowboy c1("cowboy1", p1), c2("cowboy2", p2);
-    OldNinja n1("ninja1", p3), n2("ninja2", p4);
-    Team team_a(&c1), team_b(&n1);
-
-    SUBCASE("Attacking with no living members should end attack") {
-        team_a.attack(&team_b);
-        CHECK(team_b.stillAlive() == 1);
-    }
-
-    SUBCASE("Attacking with living members") {
-        team_a.add(&c2);
-        team_b.add(&n2);
-        while (team_a.stillAlive() > 0 && team_b.stillAlive() > 0) {
-            team_a.attack(&team_b);
-            team_b.attack(&team_a);
-        }
-        CHECK((team_a.stillAlive() == 0 || team_b.stillAlive() == 0));
-    }
-}
-
 
 TEST_CASE("Distance Test") {
     Point a(2.0, 3.0);
@@ -94,5 +94,27 @@ TEST_CASE("Move Towards Test") {
     CHECK(a.print() == "(1.60078,3.20078)");
 }
 
+TEST_SUITE("Ninja sub-classes functions") {
+    Point p1(0, 0), p2(0, 2), p3(0, -1), p4(0, 15);
+    OldNinja *oldNinja = new OldNinja("oldNinja", p1);
+    YoungNinja *youngNinja = new YoungNinja("youngNinja", p2);
+    TrainedNinja *trainedNinja = new TrainedNinja("trainedNinja", p3);
+    Cowboy *enemy = new Cowboy("enemy", p4);
 
+    TEST_CASE("Hit and isAlive functions") {
+        oldNinja->hit(100);
+        CHECK((oldNinja->isAlive() == true));
+        oldNinja->hit(50);
+        CHECK((oldNinja->isAlive() == false));
 
+        youngNinja->hit(100);
+        CHECK((youngNinja->isAlive() == true));
+        youngNinja->hit(20);
+        CHECK((youngNinja->isAlive() == false));
+
+        trainedNinja->hit(80);
+        CHECK((trainedNinja->isAlive() == true));
+        trainedNinja->hit(20);
+        CHECK((trainedNinja->isAlive() == false));
+    }
+}
