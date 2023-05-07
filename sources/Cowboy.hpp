@@ -3,6 +3,8 @@
 #include "Character.hpp"
 
 namespace ariel {
+    constexpr int HIT_POINTS = 110;
+    constexpr int BULLETS = 6;
 
     class Cowboy : public Character {
     private:
@@ -10,7 +12,9 @@ namespace ariel {
 
 
     public:
-        Cowboy(std::string name, Point &point) : Character(name, point, 110), _bullets(6) {}; // & ?
+        Cowboy(std::string name, Point &point) : Character(name, point, HIT_POINTS), _bullets(BULLETS) {}; // & ?
+
+        ~Cowboy() override = default;
 
         void shoot(Character *enemy);
 

@@ -14,7 +14,7 @@ namespace ariel {
         Character(std::string &name, Point &location, int hit_points) : _name(name), _location(location),
                                                                         _hit_points(hit_points) {};
 
-        // ? virtual ~Character()= default;
+        virtual ~Character() = default;
 
         bool isAlive() const;
 
@@ -23,6 +23,8 @@ namespace ariel {
         void hit(int points);
 
         const Point &getLocation() const;
+
+        void setLocation(const Point &location);
 
         std::string getName() const;
 

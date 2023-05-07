@@ -6,6 +6,12 @@ namespace ariel {
         add(leader);
     }
 
+    Team::~Team() {
+        for (Character *member: _members) {
+            delete member;
+        }
+    }
+
     void Team::add(Character *member) {
         if (current_members < 10) {
             current_members++;
@@ -27,12 +33,13 @@ namespace ariel {
         return count;
     }
 
-    std::string Team::print() const {
+    void Team::print() const {
         std::string str;
         for (Character *member: _members) {
             str += member->print();
         }
         cout << str;
     }
+
 
 }

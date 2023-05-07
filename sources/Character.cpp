@@ -27,6 +27,10 @@ namespace ariel {
         return _location;
     }
 
+    void Character::setLocation(const Point &location) {
+        _location = location;
+    }
+
     string Character::print() const {
         string str;
         if (!isAlive()) {
@@ -40,6 +44,8 @@ namespace ariel {
         return str;
 
     }
+
+
 
 
 }

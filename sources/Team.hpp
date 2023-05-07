@@ -17,7 +17,7 @@ namespace ariel {
     public:
         Team(Character *leader);
 
-        virtual ~Team() = default;
+        virtual ~Team();
 
         void add(Character *member);
 
@@ -25,7 +25,7 @@ namespace ariel {
 
         int stillAlive() const;
 
-        std::string print() const;
+        void print() const;
 
 
     };

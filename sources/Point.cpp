@@ -7,23 +7,23 @@ using namespace std;
 namespace ariel {
 
     double Point::getX() const {
-        return _x;
+        return coord_x;
     }
 
     double Point::getY() const {
-        return _y;
+        return coord_y;
     }
 
     double Point::distance(const Point &other) const {
-        return sqrt(pow(_x - other._x, 2) + pow(_y - other._y, 2));
+        return sqrt(pow(coord_x - other.coord_x, 2) + pow(coord_y - other.coord_y, 2));
     }
 
     string Point::print() const {
-        string str = "(" + to_string(_x) + ", " + to_string(_y) + ")";
+        string str = "(" + to_string(coord_x) + ", " + to_string(coord_y) + ")";
         return str;
     }
 
-    Point Point::moveTowards(const Point &source, const Point &dest, const double max_distance) const {
+    Point Point::moveTowards(const Point &source, const Point &dest, double max_distance) {
         if (max_distance < 0) {
             throw invalid_argument("distance must be non-negative");
         }
@@ -31,9 +31,9 @@ namespace ariel {
         if (distance <= max_distance) return dest;
 
         double ratio = max_distance / distance;
-        double dx = dest._x - source._x;
-        double dy = dest._y - source._y;
-        return Point(source._x + dx * ratio, source._y + dy * ratio);
+        double dx = dest.coord_x - source.coord_x;
+        double dy = dest.coord_y - source.coord_y;
+        return Point(source.coord_x + dx * ratio, source.coord_y + dy * ratio);
 
 
     }
