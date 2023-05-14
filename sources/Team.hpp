@@ -17,7 +17,7 @@ namespace ariel {
     public:
         Team(Character *leader);
 
-        virtual ~Team();
+        ~Team();
 
         void add(Character *member);
 
