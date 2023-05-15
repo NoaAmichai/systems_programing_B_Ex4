@@ -8,8 +8,8 @@ namespace ariel {
     }
 
     double Character::distance(const Character *other) const {
-        return sqrt(
-                pow(_location.getX() - other->_location.getX(), 2) + pow(_location.getY() - other->_location.getY(), 2));
+        return sqrt(pow(_location.getX() - other->_location.getX(), 2) +
+                    pow(_location.getY() - other->_location.getY(), 2));
     }
 
     void Character::hit(int points) {
@@ -44,8 +44,4 @@ namespace ariel {
         return str;
 
     }
-
-
-
-
 }

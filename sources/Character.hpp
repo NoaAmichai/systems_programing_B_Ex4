@@ -13,11 +13,12 @@ namespace ariel {
     public:
         Character(std::string &name, Point &location, int hit_points) : _name(name), _location(location),
                                                                         _hit_points(hit_points) {};
+
         virtual ~Character() = default;
 
         bool isAlive() const;
 
-        double distance(const Character* other) const;
+        double distance(const Character *other) const;
 
         void hit(int points);
 

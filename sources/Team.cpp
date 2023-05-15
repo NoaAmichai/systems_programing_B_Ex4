@@ -26,36 +26,34 @@ namespace ariel {
 
     // Attacks another team
     void Team::attack(Team *enemies) { //TODO !
-        // If leader isn't alive, generate new leader
+        if (stillAlive() == 0) {
+            cout << "This team can't attack, all the members are dead" << endl;
+            return;
+        }
+        // If the leader isn't alive, generate a new one
         if (!_leader->isAlive()) {
             Character *new_leader = findClosestCharacter(_leader, _members);
             _leader = new_leader;
         }
 
         while (stillAlive() > 0 && enemies->stillAlive() > 0) {
-            //Find the closest enemy to the leader
-            Character *victim = findClosestCharacter(_leader, enemies->_members);
+            // Find the closest alive enemy
+            Character *closest_enemy = findClosestCharacter(_leader, enemies->_members);
 
-            // Attack the victim
-            while (victim->isAlive()) {
-                if(auto* cowboy = findNextCowboyWithBullets()){
-                    cowboy->shoot(victim);
+            // Attack the closest alive enemy
+            while (closest_enemy->isAlive()) {
+                // Find cowboy alive and with bullets
+                if (auto *cowboy = findNextCowboyWithBullets()) {
+                    cowboy->shoot(closest_enemy);
                     break;
-                }
-                else{ //There isn't any cowboy alive and with bullets
-
+                } else if () {// Find Ninja that is in distance < 1
 
                 }
-
             }
-//            enemies->_members.emplace_back(victim);
-
         }
-
-
     }
 
-    // Returns the number of alive members in the team
+    // Returns the number of living members in the team
     int Team::stillAlive() const {
         int count = 0;
         for (Character *member: _members) {
@@ -92,14 +90,22 @@ namespace ariel {
         return closet;
     }
 
-    // Finds the next alive cowboy with bullets
+    // Finds the next living cowboy with bullets
     Cowboy *Team::findNextCowboyWithBullets() {
         for (Character *member: _members) {
             // Check if the member is a cowboy and has bullets
-            if (auto *cowboy = dynamic_cast<Cowboy *>(member)) { // cowboy will be null if the member isn't cowboy
-                if (cowboy->isAlive() && cowboy->hasboolets()) {
-                    return cowboy;
-                }
+            auto *cowboy = dynamic_cast<Cowboy *>(member); // If it's not a cowboy, cowboy will be null.
+            if (!cowboy) {
+                continue;
+            }
+
+            // If the cowboy is alive and doesn't have bullets, reload
+            if (cowboy->isAlive() && !cowboy->hasboolets()) {
+                cowboy->reload();
+            }
+                // If the cowboy is alive and has bullets
+            else if (cowboy->isAlive() && cowboy->hasboolets()) {
+                return cowboy;
             }
         }
         return nullptr;

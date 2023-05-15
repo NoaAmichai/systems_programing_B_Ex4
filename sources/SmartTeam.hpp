@@ -5,8 +5,10 @@
 namespace ariel {
     class SmartTeam : public Team {
 
+    public:
+        SmartTeam(Character *_leader);
+
+
     };
-
-
 }
 

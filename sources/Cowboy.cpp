@@ -16,7 +16,6 @@ namespace ariel {
     }
 
     void Cowboy::reload() {
-        // Check that he needs to reload
         if (_bullets == 0) {
             _bullets += 6;
         }

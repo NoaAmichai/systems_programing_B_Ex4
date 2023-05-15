@@ -30,11 +30,9 @@ namespace ariel {
 
         void print() const;
 
-        static Character *findClosestCharacter(Character* source, std::vector<Character*>& chars);
+        static Character *findClosestCharacter(Character *source, std::vector<Character *> &chars);
 
-        Cowboy* findNextCowboyWithBullets();
-
-
+        Cowboy *findNextCowboyWithBullets();
 
     };
 
