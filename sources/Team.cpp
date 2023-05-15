@@ -30,7 +30,7 @@ namespace ariel {
                 count++;
             }
         }
-        return 0; //TODO CHANGE AFTER SUBMIT PART A!!!!!!!!!!!!!!!!1 return count
+        return count;
     }
 
     void Team::print() const {

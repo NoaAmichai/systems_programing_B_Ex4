@@ -6,6 +6,8 @@ using namespace std;
 
 namespace ariel {
 
+    Point::Point(double coord_x, double coord_y) : coord_x(coord_x), coord_y(coord_y) {}
+
     double Point::getX() const {
         return coord_x;
     }
@@ -33,9 +35,7 @@ namespace ariel {
         double ratio = max_distance / distance;
         double dx = dest.coord_x - source.coord_x;
         double dy = dest.coord_y - source.coord_y;
-        return Point(source.coord_x + dx * ratio, source.coord_y + dy * ratio);
-
-
+        return {source.coord_x + dx * ratio, source.coord_y + dy * ratio};
     }
 
 }

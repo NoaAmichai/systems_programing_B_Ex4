@@ -7,9 +7,9 @@ namespace ariel {
         return _hit_points > 0;
     }
 
-    double Character::distance(const Character &other) const {
+    double Character::distance(const Character *other) const {
         return sqrt(
-                pow(_location.getX() - other._location.getX(), 2) + pow(_location.getY() - other._location.getY(), 2));
+                pow(_location.getX() - other->_location.getX(), 2) + pow(_location.getY() - other->_location.getY(), 2));
     }
 
     void Character::hit(int points) {

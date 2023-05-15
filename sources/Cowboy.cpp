@@ -11,12 +11,15 @@ namespace ariel {
         }
     }
 
-    bool Cowboy::hasBullets() const {
+    bool Cowboy::hasboolets() const {
         return _bullets > 0;
     }
 
     void Cowboy::reload() {
-        _bullets += 6;
+        // Check that he needs to reload
+        if (_bullets == 0) {
+            _bullets += 6;
+        }
     }
 
     string Cowboy::print() const {

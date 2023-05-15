@@ -10,7 +10,7 @@ namespace ariel {
         double coord_x, coord_y;
 
     public:
-        Point(double coord_x = 0.0, double coord_y = 0.0) : coord_x(coord_x), coord_y(coord_y) {}
+        Point(double coord_x = 0.0, double coord_y = 0.0);
 
         double getX() const;
 

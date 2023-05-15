@@ -4,6 +4,9 @@
 #include "Point.hpp"
 #include "Cowboy.hpp"
 #include "Ninja.hpp"
+#include "YoungNinja.hpp"
+#include "OldNinja.hpp"
+#include "TrainedNinja.hpp"
 #include "Character.hpp"
 
 namespace ariel {

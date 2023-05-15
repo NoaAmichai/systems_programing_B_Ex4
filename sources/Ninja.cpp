@@ -20,12 +20,12 @@ namespace ariel {
     }
 
     void Ninja::slash(Character *enemy) {
-        if (enemy->isAlive()) {
+        if (isAlive()) {
             Point enemy_location = enemy->getLocation();
             Point current_location = getLocation();
             double distance = current_location.distance(enemy_location);
             if (distance <= 1) {
-                enemy->hit(31);
+                enemy->hit(40);
             }
 
         }
