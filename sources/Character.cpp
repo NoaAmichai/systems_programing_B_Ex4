@@ -7,9 +7,9 @@ namespace ariel {
         return _hit_points > 0;
     }
 
-    double Character::distance(const Character &other) const {
-        return sqrt(
-                pow(_location.getX() - other._location.getX(), 2) + pow(_location.getY() - other._location.getY(), 2));
+    double Character::distance(const Character *other) const {
+        return sqrt(pow(_location.getX() - other->_location.getX(), 2) +
+                    pow(_location.getY() - other->_location.getY(), 2));
     }
 
     void Character::hit(int points) {
@@ -31,21 +31,8 @@ namespace ariel {
         _location = location;
     }
 
-    string Character::print() const {
-        string str;
-        if (!isAlive()) {
-            str += "Name: (" + _name + "), Location:" +
-                   _location.print()
-                   + '\n';
-        } else {
-            str += "Name: " + _name + ", Hit Points:" + " (" + to_string(_hit_points) + ") " + ", Location: " +
-                   _location.print() + '\n';
-        }
-        return str;
-
+    int Character::getHitPoints() const {
+        return _hit_points;
     }
-
-
-
 
 }

@@ -8,6 +8,10 @@ namespace ariel {
     private:
         std::string _name;
         Point _location;
+    public:
+        int getHitPoints() const;
+
+    private:
         int _hit_points;
 
     public:
@@ -18,7 +22,7 @@ namespace ariel {
 
         bool isAlive() const;
 
-        double distance(const Character &other) const;
+        double distance(const Character *other) const;
 
         void hit(int points);
 
@@ -28,9 +32,7 @@ namespace ariel {
 
         std::string getName() const;
 
-        virtual std::string print() const;
-
-
+        virtual std::string print() const = 0;
     };
 }
 

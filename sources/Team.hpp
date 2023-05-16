@@ -4,6 +4,9 @@
 #include "Point.hpp"
 #include "Cowboy.hpp"
 #include "Ninja.hpp"
+#include "YoungNinja.hpp"
+#include "OldNinja.hpp"
+#include "TrainedNinja.hpp"
 #include "Character.hpp"
 
 namespace ariel {
@@ -17,7 +20,7 @@ namespace ariel {
     public:
         Team(Character *leader);
 
-        virtual ~Team();
+        ~Team();
 
         void add(Character *member);
 
@@ -27,6 +30,9 @@ namespace ariel {
 
         void print() const;
 
+        static Character *findClosestCharacter(Character *source, std::vector<Character *> &chars);
+
+        Cowboy *findNextCowboyWithBullets();
 
     };
 

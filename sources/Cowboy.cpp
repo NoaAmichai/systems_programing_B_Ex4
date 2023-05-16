@@ -11,15 +11,26 @@ namespace ariel {
         }
     }
 
-    bool Cowboy::hasBullets() const {
+    bool Cowboy::hasboolets() const {
         return _bullets > 0;
     }
 
     void Cowboy::reload() {
-        _bullets += 6;
+        if (_bullets == 0) {
+            _bullets += 6;
+        }
     }
 
     string Cowboy::print() const {
-        return "C : " + Character::print();
+        string str = "C : ";
+        if (!isAlive()) {
+            str += "Name: (" + getName() + "), Location:" +
+                   getLocation().print()
+                   + '\n';
+        } else {
+            str += "Name: " + getName() + ", Hit Points:" + " (" + to_string(getHitPoints()) + ") " + ", Location: " +
+                   getLocation().print() + '\n';
+        }
+        return str;
     }
 }
