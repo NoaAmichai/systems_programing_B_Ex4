@@ -7,14 +7,17 @@ namespace ariel {
         if (!isAlive()) {
             throw runtime_error(getName() + " can't move.");
         }
-        Point enemy_location = enemy->getLocation();
-        Point current_location = getLocation();
+        const Point &enemy_location = enemy->getLocation();
+        const Point &current_location = getLocation();
 
         double distance = current_location.distance(enemy_location);
-        if (distance <= _speed) {
+        double max_distance = _speed;
+
+        if (distance <= max_distance) {
             setLocation(enemy_location);
         } else {
-            setLocation(Point::moveTowards(current_location, enemy_location, distance * _speed)); //TODO Check!
+            Point new_location = Point::moveTowards(current_location, enemy_location, max_distance);
+            setLocation(new_location);
         }
 
     }

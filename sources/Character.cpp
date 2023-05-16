@@ -35,4 +35,12 @@ namespace ariel {
         return _hit_points;
     }
 
+    bool Character::isInGame() const {
+        return _in_game;
+    }
+
+    void Character::setInGame(bool inGame) {
+        _in_game = inGame;
+    }
+
 }
