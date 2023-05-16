@@ -6,9 +6,7 @@ namespace ariel {
     class Team2 : public Team {
 
     public:
-        Team2(Character *_leader);
-
-        virtual ~Team2();
+        Team2(Character *_leader) : Team(_leader) {}
     };
 }
 
