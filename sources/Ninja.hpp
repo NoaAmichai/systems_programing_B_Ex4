@@ -10,7 +10,7 @@ namespace ariel {
         int _speed;
 
     public:
-        Ninja(std::string &name, Point &location, int hit_points, int speed) : Character(name,
+        Ninja(std::string &name, int speed, Point &location, int hit_points) : Character(name,
                                                                                          location,
                                                                                          hit_points),
                                                                                _speed(speed) {}
@@ -22,6 +22,12 @@ namespace ariel {
         void slash(Character *enemy);
 
         std::string print() const override;
+
+        //Make tidy happy
+        Ninja(const Ninja &) = delete;
+        Ninja &operator=(const Ninja &) = delete;
+        Ninja(Ninja &&) = delete;
+        Ninja &operator=(Ninja &&) = delete;
 
     };
 

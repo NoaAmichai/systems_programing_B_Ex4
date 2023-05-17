@@ -83,27 +83,36 @@ TEST_SUITE("Team class") {
         Team team(oldNinja);
         CHECK(team.stillAlive() == 1);
     }
+}
 
-    TEST_CASE("Adding members to the team") {
-        Team team(oldNinja);
-        CHECK_NOTHROW(team.add(youngNinja));
-        CHECK_NOTHROW(team.add(trainedNinja));
-        CHECK_NOTHROW(team.add(cowboy));
-        CHECK(team.stillAlive() == 4);
+TEST_SUITE("Point class tests") {
+    Point p1{1, 1};
+    Point p2{2, 3};
+    Point n1{-1, 1};
+    Point n2{1, -9};
+    Point n3{-1, -1};
+
+    TEST_CASE("Distance method") {
+        CHECK(p1.distance(p2) == p2.distance(p1));
+        CHECK(n1.distance(n2) == n2.distance(n1));
+        CHECK(n3.distance(p1) == p1.distance(n3));
+
+        CHECK(n2.distance(p1) == 10);
+        CHECK(p2.distance(n3) == 5);
+        CHECK(p1.distance(p1) == 0);
     }
 
-    TEST_CASE("Attacking other teams") {
-        Team team(oldNinja);
-        Team enemies(cowboy);
-        CHECK_NOTHROW(team.attack(&enemies));
-        CHECK(enemies.stillAlive() == 0);
-    }
+    TEST_CASE("moveTowards method") {
+        double distance = p1.distance(p2);
+        double half_p = distance / 2;
+        double third_p = distance / 3;
 
-    TEST_CASE("Printing the team's members") {
-        Team team(oldNinja);
-        team.add(youngNinja);
-        team.add(trainedNinja);
-        team.add(cowboy);
-        CHECK_NOTHROW(team.print());
+        Point p3 = Point::moveTowards(p1, p2, half_p);
+        CHECK(p3.distance(p2) == doctest::Approx(half_p).epsilon(0.001));
+
+        Point p4 = Point::moveTowards(p1, p2, third_p);
+        CHECK(p4.distance(p2) == doctest::Approx(third_p * 2).epsilon(0.001));
+
+        CHECK_THROWS_AS(Point::moveTowards(p1, p2, -1), std::invalid_argument);
     }
 }

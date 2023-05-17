@@ -6,11 +6,12 @@ namespace ariel {
     class Cowboy : public Character {
     private:
         int _bullets;
-        static constexpr int HIT_POINTS = 110; // ?
+        static const int HIT_POINTS {110};
+        static const int MAX_BULLETS {6};
 
     public:
         Cowboy(std::string name, Point point) : Character(name, point, HIT_POINTS),
-                                                _bullets(6) {}; // & ?
+                                                _bullets(MAX_BULLETS) {}; // & ?
 
         ~Cowboy() override = default;
 
@@ -21,6 +22,12 @@ namespace ariel {
         void reload();
 
         std::string print() const override;
+
+        //Make tidy happy
+        Cowboy(const Cowboy&) = delete;
+        Cowboy& operator=(const Cowboy&) = delete;
+        Cowboy(Cowboy&&) = delete;
+        Cowboy& operator=(Cowboy&&) = delete;
 
 
     };

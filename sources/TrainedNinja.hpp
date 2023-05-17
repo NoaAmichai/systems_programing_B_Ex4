@@ -2,13 +2,12 @@
 
 #include "Ninja.hpp"
 
-#define TRAINED_HIT_POINTS 120
-#define TRAINED_SPEED 12
-
 class TrainedNinja : public ariel::Ninja {
+    static const int TRAINED_HIT_POINTS {120};
+    static const int TRAINED_SPEED {12};
 
 public:
-    TrainedNinja(std::string name, ariel::Point location) : Ninja(name, location, TRAINED_HIT_POINTS, TRAINED_SPEED) {}
+    TrainedNinja(std::string name, ariel::Point location) : Ninja(name, TRAINED_SPEED, location, TRAINED_HIT_POINTS) {}
 
-    ~TrainedNinja() override = default;
+//    ~TrainedNinja() override = default;
 };

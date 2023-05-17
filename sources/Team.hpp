@@ -35,7 +35,11 @@ namespace ariel {
         Cowboy *findNextCowboyWithBullets();
 
         Ninja *findNextNinja(Character* closest_enemy);
+
+        //Make tidy happy
+        Team(const Team&) = delete;
+        Team& operator=(const Team&) = delete;
+        Team(Team&&) = delete;
+        Team& operator=(Team&&) = delete;
     };
-
-
 }
