@@ -19,16 +19,16 @@ namespace ariel {
     // Adds a member to the team
     void Team::add(Character *member) {
         if (member->isInGame()) {
-            throw runtime_error(member->getName() + " is playing in another game right now.");
+            throw std::runtime_error(member->getName() + " is playing in another game right now.");
         } else member->setInGame(true);
-        if (current_members < MAX_MEMBERS) {
-            ++current_members;
+        if (_members.size() < MAX_MEMBERS) {
             _members.push_back(member);
-        } else throw runtime_error("Team is already at maximum capacity");
+        } else throw std::runtime_error("Team is already at maximum capacity");
     }
 
     // Attacks another team
     void Team::attack(Team *enemies) { //TODO !
+        if (enemies == nullptr) throw std::invalid_argument("Enemies is null");
         if (stillAlive() == 0) {
             cout << "This team can't attack, all the members are dead" << endl;
             return;
@@ -42,7 +42,6 @@ namespace ariel {
         if (stillAlive() > 0 && enemies->stillAlive() > 0) {
             // Find the closest alive enemy
             Character *closest_enemy = findClosestAliveCharacter(_leader, enemies->_members);
-
             // Attack the closest alive enemy
             while (closest_enemy->isAlive()) {
                 // Find cowboy alive and with bullets
@@ -102,7 +101,6 @@ namespace ariel {
             if (!cowboy) {
                 continue;
             }
-
             // If the cowboy is alive and doesn't have bullets, reload
             if (cowboy->isAlive() && !cowboy->hasboolets()) {
                 cowboy->reload();
@@ -134,7 +132,6 @@ namespace ariel {
             }
         }
         return nullptr;
-
     }
 }
 

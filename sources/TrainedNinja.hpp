@@ -2,9 +2,11 @@
 
 #include "Ninja.hpp"
 
+#define TRAINED_HIT_POINTS 120
+#define TRAINED_SPEED 12
+
 class TrainedNinja : public ariel::Ninja {
-    static constexpr int TRAINED_HIT_POINTS = 120;
-    static constexpr int TRAINED_SPEED = 12;
+
 public:
     TrainedNinja(std::string name, ariel::Point location) : Ninja(name, location, TRAINED_HIT_POINTS, TRAINED_SPEED) {}
 

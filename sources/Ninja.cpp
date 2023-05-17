@@ -19,18 +19,16 @@ namespace ariel {
             Point new_location = Point::moveTowards(current_location, enemy_location, max_distance);
             setLocation(new_location);
         }
-
     }
 
     void Ninja::slash(Character *enemy) {
-        if (isAlive()) {
-            Point enemy_location = enemy->getLocation();
-            Point current_location = getLocation();
-            double distance = current_location.distance(enemy_location);
-            if (distance <= 1) {
-                enemy->hit(40);
-            }
-
+        if (!isAlive() || !enemy->isAlive()) throw runtime_error("The attacker or the enemy is not alive");
+        if (this == enemy) throw std::runtime_error("Ninja can't slash himself");
+        Point enemy_location = enemy->getLocation();
+        Point current_location = getLocation();
+        double distance = current_location.distance(enemy_location);
+        if (distance <= 1) {
+            enemy->hit(40);
         }
     }
 

@@ -13,6 +13,7 @@ namespace ariel {
     }
 
     void Character::hit(int points) {
+        if (points < 0) throw std::invalid_argument("Hit can't get negative value");
         _hit_points -= points;
         if (_hit_points < 0) {
             _hit_points = 0;

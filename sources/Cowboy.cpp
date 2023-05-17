@@ -5,6 +5,8 @@ using namespace std;
 namespace ariel {
 
     void Cowboy::shoot(Character *enemy) {
+        if (!isAlive() || !enemy->isAlive()) throw runtime_error("The attacker or the enemy is not alive");
+        if (this == enemy) throw std::runtime_error("Cowboy can't shoot himself");
         if (isAlive() && _bullets > 0) {
             --_bullets;
             enemy->hit(10);
@@ -16,6 +18,7 @@ namespace ariel {
     }
 
     void Cowboy::reload() {
+        if (!isAlive()) throw std::runtime_error(" Dead cowboy can not reload");
         if (_bullets == 0) {
             _bullets += 6;
         }
