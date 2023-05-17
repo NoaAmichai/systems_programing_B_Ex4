@@ -5,7 +5,7 @@ using namespace std;
 namespace ariel {
 
     // Constructor
-    Team::Team(Character *leader) : _leader(leader), _members(0), current_members(1) {
+    Team::Team(Character *leader) : _leader(leader), _members(0) {
         add(_leader);
     }
 
@@ -26,35 +26,71 @@ namespace ariel {
         } else throw std::runtime_error("Team is already at maximum capacity");
     }
 
-    // Attacks another team
-    void Team::attack(Team *enemies) { //TODO !
-        if (enemies == nullptr) throw std::invalid_argument("Enemies is null");
+// Attacks another team
+    void Team::attack(Team* enemies) {
+        // Check if the enemy team is null or already defeated
+        if (enemies == nullptr) {
+            throw std::invalid_argument("Enemies can't be null");
+        }
+        if (enemies->stillAlive() == 0) {
+            throw std::runtime_error("Can't attack a dead team.");
+        }
+
+        // Check if attacking team has any living members
         if (stillAlive() == 0) {
             cout << "This team can't attack, all the members are dead" << endl;
             return;
         }
-        // If the leader isn't alive, generate a new one
+
+        cout << "Attacking team: " << _leader->getName() << endl;
+
+        // If the leader isn't alive, find a new leader among the living members
         if (!_leader->isAlive()) {
-            Character *new_leader = findClosestAliveCharacter(_leader, _members);
-            _leader = new_leader;
+            _leader = findClosestAliveCharacter(_leader, _members);
+            cout << "New leader selected: " << _leader->getName() << endl;
         }
 
-        if (stillAlive() > 0 && enemies->stillAlive() > 0) {
-            // Find the closest alive enemy
-            Character *closest_enemy = findClosestAliveCharacter(_leader, enemies->_members);
-            // Attack the closest alive enemy
-            while (closest_enemy->isAlive()) {
-                // Find cowboy alive and with bullets
-                if (auto *cowboy = findNextCowboyWithBullets()) {
+        // Find the closest alive enemy to the leader
+        Character* closest_enemy = findClosestAliveCharacter(_leader, enemies->_members);
+        cout << _leader->getName() << " team is attacking " << closest_enemy->getName() << endl;
+
+        // Iterate over the attacking team members
+        for (Character* member : _members) {
+            if (!member->isAlive()) continue;
+            if (enemies->stillAlive() == 0) return; // Check if enemy team has any living members left
+
+            // Check if the member is a Cowboy
+            if (auto* cowboy = dynamic_cast<Cowboy*>(member)) {
+                if (cowboy->hasboolets()) {
                     cowboy->shoot(closest_enemy);
-                    break;
-                } else if (auto *ninja = findNextNinja(closest_enemy)) {// Find Ninja that is in distance <= 1
-                    ninja->slash(closest_enemy);
-                    break;
+                    cout << cowboy->getName() << " shot " << closest_enemy->getName() << endl;
+                } else {
+                    cowboy->reload();
+                    cout << cowboy->getName() << " reloaded" << endl;
                 }
+            }
+
+                // Check if the member is a Ninja
+            else if (auto* ninja = dynamic_cast<Ninja*>(member)) {
+                if (ninja->distance(closest_enemy) <= 1) {
+                    ninja->slash(closest_enemy);
+                    cout << ninja->getName() << " slashed " << closest_enemy->getName() << endl;
+                } else {
+                    ninja->move(closest_enemy);
+                    cout << ninja->getName() << " moved towards " << closest_enemy->getName() << endl;
+                }
+            }
+
+            // Check if the current victim is dead, and find a new victim if needed
+            if (!closest_enemy->isAlive()) {
+                closest_enemy = findClosestAliveCharacter(_leader, enemies->_members);
+                if (!closest_enemy) return; // No more living enemies
+                cout << "New victim selected: " << closest_enemy->getName() << endl;
             }
         }
     }
+
+
 
     // Returns the number of living members in the team
     int Team::stillAlive() const {

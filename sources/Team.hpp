@@ -15,7 +15,6 @@ namespace ariel {
         static const int MAX_MEMBERS{10};
         std::vector<Character *> _members;
         Character *_leader;
-        int current_members;
 
     public:
         Team(Character *leader);
