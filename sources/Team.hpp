@@ -11,7 +11,7 @@
 
 namespace ariel {
     class Team {
-    private:
+    protected:
         static const int MAX_MEMBERS{10};
         std::vector<Character *> _members;
         Character *_leader;
@@ -21,19 +21,15 @@ namespace ariel {
 
         ~Team();
 
-        void add(Character *member);
+        virtual void add(Character *member);
 
         void attack(Team *enemies);
 
         int stillAlive() const;
 
-        void print() const;
+        virtual void print() const;
 
         static Character *findClosestAliveCharacter(Character *source, std::vector<Character *> &chars);
-
-        Cowboy *findNextCowboyWithBullets();
-
-        Ninja *findNextNinja(Character* closest_enemy);
 
         //Make tidy happy
         Team(const Team&) = delete;

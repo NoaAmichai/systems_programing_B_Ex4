@@ -19,9 +19,8 @@ namespace ariel {
 
     void Cowboy::reload() {
         if (!isAlive()) throw std::runtime_error(" Dead cowboy can not reload");
-        if (_bullets == 0) {
-            _bullets += 6;
-        }
+        _bullets = 6;
+
     }
 
     string Cowboy::print() const {

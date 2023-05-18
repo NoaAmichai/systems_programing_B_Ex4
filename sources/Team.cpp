@@ -16,18 +16,35 @@ namespace ariel {
         }
     }
 
-    // Adds a member to the team
     void Team::add(Character *member) {
         if (member->isInGame()) {
             throw std::runtime_error(member->getName() + " is playing in another game right now.");
-        } else member->setInGame(true);
-        if (_members.size() < MAX_MEMBERS) {
-            _members.push_back(member);
-        } else throw std::runtime_error("Team is already at maximum capacity");
+        } else {
+            member->setInGame(true);
+        }
+
+        if (_members.size() >= MAX_MEMBERS) {
+            throw std::runtime_error("Team is already at maximum capacity");
+        }
+
+        // Determine the insertion position based on the type and order of characters
+        auto insertPosition = _members.end();
+        if (dynamic_cast<Cowboy *>(member)) {
+            for (auto it = _members.begin(); it != _members.end(); ++it) {
+                if (!dynamic_cast<Cowboy *>(*it)) {
+                    insertPosition = it;
+                    break;
+                }
+            }
+        }
+
+        // Insert the member at the determined position
+        _members.insert(insertPosition, member);
     }
 
-// Attacks another team
-    void Team::attack(Team* enemies) {
+
+    // Attacks another team
+    void Team::attack(Team *enemies) {
         // Check if the enemy team is null or already defeated
         if (enemies == nullptr) {
             throw std::invalid_argument("Enemies can't be null");
@@ -51,16 +68,16 @@ namespace ariel {
         }
 
         // Find the closest alive enemy to the leader
-        Character* closest_enemy = findClosestAliveCharacter(_leader, enemies->_members);
+        Character *closest_enemy = findClosestAliveCharacter(_leader, enemies->_members);
         cout << _leader->getName() << " team is attacking " << closest_enemy->getName() << endl;
 
         // Iterate over the attacking team members
-        for (Character* member : _members) {
+        for (Character *member: _members) {
             if (!member->isAlive()) continue;
-            if (enemies->stillAlive() == 0) return; // Check if enemy team has any living members left
+            if (enemies->stillAlive() == 0) return; // Check if the enemy team has any living members left
 
             // Check if the member is a Cowboy
-            if (auto* cowboy = dynamic_cast<Cowboy*>(member)) {
+            if (auto *cowboy = dynamic_cast<Cowboy *>(member)) {
                 if (cowboy->hasboolets()) {
                     cowboy->shoot(closest_enemy);
                     cout << cowboy->getName() << " shot " << closest_enemy->getName() << endl;
@@ -71,7 +88,7 @@ namespace ariel {
             }
 
                 // Check if the member is a Ninja
-            else if (auto* ninja = dynamic_cast<Ninja*>(member)) {
+            else if (auto *ninja = dynamic_cast<Ninja *>(member)) {
                 if (ninja->distance(closest_enemy) <= 1) {
                     ninja->slash(closest_enemy);
                     cout << ninja->getName() << " slashed " << closest_enemy->getName() << endl;
@@ -89,7 +106,6 @@ namespace ariel {
             }
         }
     }
-
 
 
     // Returns the number of living members in the team
@@ -128,46 +144,4 @@ namespace ariel {
         }
         return closet;
     }
-
-    // Finds the next living cowboy with bullets
-    Cowboy *Team::findNextCowboyWithBullets() {
-        for (Character *member: _members) {
-            // Check if the member is a cowboy and has bullets
-            auto *cowboy = dynamic_cast<Cowboy *>(member); // If it's not a Cowboy, cowboy will be null.
-            if (!cowboy) {
-                continue;
-            }
-            // If the cowboy is alive and doesn't have bullets, reload
-            if (cowboy->isAlive() && !cowboy->hasboolets()) {
-                cowboy->reload();
-            }
-                // If the cowboy is alive and has bullets
-            else if (cowboy->isAlive() && cowboy->hasboolets()) {
-                return cowboy;
-            }
-        }
-        return nullptr;
-    }
-
-    //Find the next living ninja that is also 1 meter close
-    Ninja *Team::findNextNinja(Character *closest_enemy) {
-        for (Character *member: _members) {
-            // Check if the member is a ninja and close enough
-            auto *ninja = dynamic_cast<Ninja *>(member); // If it's not a Ninja, ninja will be null.
-            if (!ninja) {
-                continue;
-            }
-
-            // If the ninja is alive and not close enough, move ninja toward the closest enemy
-            if (ninja->isAlive() && (ninja->distance(closest_enemy) > 1)) {
-                ninja->move(closest_enemy);
-            }
-                // If the ninja is alive and close enough
-            else if (ninja->isAlive() && (ninja->distance(closest_enemy) <= 1)) {
-                return ninja;
-            }
-        }
-        return nullptr;
-    }
 }
-
