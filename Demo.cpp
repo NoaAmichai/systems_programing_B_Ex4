@@ -20,52 +20,52 @@ using namespace std;
 using namespace ariel;
 
 
-double random_float(double min = -100, double max = 100) {
-    std::default_random_engine generator(static_cast<unsigned long>(std::chrono::system_clock::now().time_since_epoch().count()));
-    std::uniform_real_distribution<double> distribution(min, max);
-
-    return distribution(generator);
-};
+//double random_float(double min = -100, double max = 100) {
+//    std::default_random_engine generator(static_cast<unsigned long>(std::chrono::system_clock::now().time_since_epoch().count()));
+//    std::uniform_real_distribution<double> distribution(min, max);
+//
+//    return distribution(generator);
+//};
 
 int main() {
 
-    auto create_yninja = [](double x = random_float(), double y = random_float()) {
-        return new YoungNinja{"Bob", Point{x, y}};
-    };
-
-    auto create_tninja = [](double x = random_float(), double y = random_float()) {
-        return new TrainedNinja{"Bob", Point{x, y}};
-    };
-
-    auto create_oninja = [](double x = random_float(), double y = random_float()) {
-        return new OldNinja{"Bob", Point{x, y}};
-    };
-
-    auto create_cowboy = [](double x = random_float(), double y = random_float()) {
-        return new Cowboy{"Bob", Point{x, y}};
-    };
-
-    auto cowboy = create_cowboy(1,2);
-    auto cowboy1 = create_cowboy(3,4);
-    auto cowboy2 = create_cowboy(5,6);
-    auto cowboy3 = create_cowboy(7,8);
-    auto cowboy4 = create_cowboy(9,10);
-    auto ninja = create_oninja(1,2);
-    auto ninja1 = create_oninja(3,4);
-    auto ninja2 = create_oninja(5,6);
-    auto ninja3 = create_oninja(7,8);
-    auto ninja4 = create_oninja(9,10);
-    Team team(cowboy);
-    team.add(ninja);
-    team.add(ninja1);
-    team.add(cowboy1);
-    team.add(ninja2);
-    team.add(cowboy2);
-    team.add(ninja3);
-    team.add(ninja4);
-    team.add(cowboy3);
-    team.add(cowboy4);
-    team.print();
+//    auto create_yninja = [](double x = random_float(), double y = random_float()) {
+//        return new YoungNinja{"Bob", Point{x, y}};
+//    };
+//
+//    auto create_tninja = [](double x = random_float(), double y = random_float()) {
+//        return new TrainedNinja{"Bob", Point{x, y}};
+//    };
+//
+//    auto create_oninja = [](double x = random_float(), double y = random_float()) {
+//        return new OldNinja{"Bob", Point{x, y}};
+//    };
+//
+//    auto create_cowboy = [](double x = random_float(), double y = random_float()) {
+//        return new Cowboy{"Bob", Point{x, y}};
+//    };
+//
+//    auto cowboy = create_cowboy(1,2);
+//    auto cowboy1 = create_cowboy(3,4);
+//    auto cowboy2 = create_cowboy(5,6);
+//    auto cowboy3 = create_cowboy(7,8);
+//    auto cowboy4 = create_cowboy(9,10);
+//    auto ninja = create_oninja(1,2);
+//    auto ninja1 = create_oninja(3,4);
+//    auto ninja2 = create_oninja(5,6);
+//    auto ninja3 = create_oninja(7,8);
+//    auto ninja4 = create_oninja(9,10);
+//    Team team(cowboy);
+//    team.add(ninja);
+//    team.add(ninja1);
+//    team.add(cowboy1);
+//    team.add(ninja2);
+//    team.add(cowboy2);
+//    team.add(ninja3);
+//    team.add(ninja4);
+//    team.add(cowboy3);
+//    team.add(cowboy4);
+//    team.print();
 
 
 

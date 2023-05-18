@@ -41,8 +41,6 @@ namespace ariel {
         // Insert the member at the determined position
         _members.insert(insertPosition, member);
     }
-
-
     // Attacks another team
     void Team::attack(Team *enemies) {
         // Check if the enemy team is null or already defeated
@@ -144,4 +142,14 @@ namespace ariel {
         }
         return closet;
     }
+
+    const std::vector<Character *> &Team::getMembers() const {
+        return _members;
+    }
+
+    void Team::addToMembers(Character *member) {
+        _members.push_back(member);
+    }
+
+
 }

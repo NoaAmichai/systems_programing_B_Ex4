@@ -7,6 +7,10 @@ namespace ariel {
 
     public:
         Team2(Character *_leader);
+
+        void add(Character *member) override;
     };
+
+
 }
 
