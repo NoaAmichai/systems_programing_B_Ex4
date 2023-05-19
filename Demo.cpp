@@ -16,6 +16,9 @@
 using namespace std;
 
 #include "sources/Team.hpp" //no need for other includes
+#include "sources/Team2.hpp"
+#include "sources/SmartTeam.hpp"
+
 
 using namespace ariel;
 
@@ -97,6 +100,37 @@ int main() {
 
     if (team_A.stillAlive() > 0) cout << "winner is team_A" << endl;
     else cout << "winner is team_B" << endl;
+
+    cout<< "---------------------------------------------- SmartTeam -------------------------------------" <<endl;
+
+    Cowboy *tom1 = new Cowboy("Tom", a);
+    OldNinja *sushi1 = new OldNinja("sushi", b);
+    tom1->shoot(sushi);
+    cout << tom1->print() <<endl;
+
+    sushi->move(tom1);
+    sushi->slash(tom1);
+
+    SmartTeam team_A1(tom1);
+    team_A1.add(new YoungNinja("Yogi", Point(64,57)));
+
+    // Team b(tom); should throw tom is already in team a
+
+    SmartTeam team_B1(sushi1);
+    team_B1.add(new TrainedNinja("Hikari", Point(12,81)));
+
+
+    while(team_A1.stillAlive() > 0 && team_B1.stillAlive() > 0){
+        team_A1.attack(&team_B1);
+        team_B1.attack(&team_A1);
+        team_A1.print();
+        team_B1.print();
+    }
+
+    if (team_A1.stillAlive() > 0) cout << "winner is team_A1" << endl;
+    else cout << "winner is team_B1" << endl;
+    cout<<team_A1.getAttackCount()<<endl;
+    cout<<team_A.getAttackCount() <<endl;
 
     return 0; // no memory issues. Team should free the memory of its members. both a and b teams are on the stack.
 

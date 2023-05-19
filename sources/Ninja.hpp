@@ -26,11 +26,8 @@ namespace ariel {
 
         //Make tidy happy
         Ninja(const Ninja &) = delete;
-
         Ninja &operator=(const Ninja &) = delete;
-
         Ninja(Ninja &&) = delete;
-
         Ninja &operator=(Ninja &&) = delete;
 
     };

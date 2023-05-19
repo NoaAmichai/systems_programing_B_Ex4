@@ -11,7 +11,7 @@ namespace ariel {
             member->setInGame(true);
         }
 
-        if (getMembers().size() >= MAX_MEMBERS) {
+        if (getTeam().size() >= MAX_MEMBERS) {
             throw std::runtime_error("Team is already at maximum capacity");
         }
         addToMembers(member);

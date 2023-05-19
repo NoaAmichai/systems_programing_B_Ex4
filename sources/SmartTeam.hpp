@@ -8,6 +8,11 @@ namespace ariel {
     public:
         SmartTeam(Character *_leader);
 
+//        void add(Character *member) override;
+
+        void attack(Team *enemies) override;
+
+        void print() const override;
 
     };
 }

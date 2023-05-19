@@ -11,12 +11,13 @@
 
 namespace ariel {
     class Team {
+    private:
+        Character *_leader;
+        std::vector<Character *> _members;
+
     protected:
         static const int MAX_MEMBERS{10};
-    private:
-        std::vector<Character *> _members;
-        Character *_leader;
-
+        int _attackCount;
     public:
         Team(Character *leader);
 
@@ -24,23 +25,25 @@ namespace ariel {
 
         virtual void add(Character *member);
 
-        void attack(Team *enemies);
+        virtual void attack(Team *enemies);
 
         int stillAlive() const;
 
-        void print() const;
+        virtual void print() const;
 
         static Character *findClosestAliveCharacter(Character *source, std::vector<Character *> &chars);
 
-        //Because Tidy does not like _members to be protected
-        const std::vector<Character *> &getMembers() const;
-
+        //Because Tidy does not agree '_members' and '_leader' to be protected
+        std::vector<Character *> getTeam() const;
         void addToMembers(Character *member);
+        Character *getLeader() const;
 
         //Make tidy happy
         Team(const Team &) = delete;
         Team &operator=(const Team &) = delete;
         Team(Team &&) = delete;
         Team &operator=(Team &&) = delete;
+
+        int getAttackCount() const;
     };
 }

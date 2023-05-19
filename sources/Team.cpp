@@ -5,7 +5,7 @@ using namespace std;
 namespace ariel {
 
     // Constructor
-    Team::Team(Character *leader) : _leader(leader), _members(0) {
+    Team::Team(Character *leader) : _leader(leader), _members(0) ,_attackCount(0) {
         add(_leader);
     }
 
@@ -57,13 +57,16 @@ namespace ariel {
             return;
         }
 
-        cout << "Attacking team: " << _leader->getName() << endl;
-
         // If the leader isn't alive, find a new leader among the living members
         if (!_leader->isAlive()) {
             _leader = findClosestAliveCharacter(_leader, _members);
             cout << "New leader selected: " << _leader->getName() << endl;
         }
+
+        // Increment the attack count
+        _attackCount++;
+
+        cout << "Attacking team: " << _leader->getName() << endl;
 
         // Find the closest alive enemy to the leader
         Character *closest_enemy = findClosestAliveCharacter(_leader, enemies->_members);
@@ -143,12 +146,21 @@ namespace ariel {
         return closet;
     }
 
-    const std::vector<Character *> &Team::getMembers() const {
+    std::vector<Character *> Team::getTeam() const {
         return _members;
     }
 
     void Team::addToMembers(Character *member) {
         _members.push_back(member);
+    }
+
+    Character *Team::getLeader() const {
+        return _leader;
+    }
+
+    // Get the number of attacks in the game
+    int Team::getAttackCount() const {
+        return _attackCount;
     }
 
 
